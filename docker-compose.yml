@@ -52,6 +52,7 @@ services:
       - SERVER.PORT=50052
       - API.HOST=api
       - API.PORT=50051
+      - LIVETIMING_URL=https://livetiming.formula1.com/static
       - RUST_LOG=metrics_one_worker=debug,metrics_one_common=debug
     ports:
       - 50052:50052 
