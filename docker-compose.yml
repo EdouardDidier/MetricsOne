@@ -66,7 +66,7 @@ services:
       - network
     environment:
       - NODE_ENV=production
-      - API_HOST=api
+      - API_HOST=http://127.0.0.1
       - API_PORT=8080
       - IMAGE_URL=https://media.formula1.com
     ports:
