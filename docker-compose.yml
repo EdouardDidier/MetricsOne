@@ -87,6 +87,8 @@ services:
       context: ./backend/
       target: api
     depends_on:
+      database:
+        condition: service_healthy
       rabbitmq:
         condition: service_healthy
     networks:
