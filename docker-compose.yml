@@ -41,15 +41,60 @@ services:
       retries: 5
       start_period: 10s
 
+  otel-collector:
+    container_name: otel-collector
+    image: otel/opentelemetry-collector-contrib:latest
+    depends_on:
+      jaeger:
+        condition: service_healthy
+    volumes:
+      - ./backend/otel/config.yml:/etc/otel/config.yaml # See config.yml for host and port
+    networks:
+      - network
+    ports:
+      - 4317:4317 # OTLP gRPC - Exposed for development
+      # - 4318:4318 # OTLP HTTP
+      - 9464:9464 # Prometheus scrape endpoint - Exposed for development
+    command: ["--config=/etc/otel/config.yaml"]
+    healthcheck: # Correct healthcheck for OTEL collector
+      test: ["CMD", "curl", "-f", "http://localhost:13133/"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  jaeger:
+    container_name: jaeger
+    image: jaegertracing/all-in-one:latest
+    networks:
+      - network
+    ports:
+      - 16686:16686 # UI
+      # - 14268:14268 # gRPC collector
+      # - 14250:14250 # HTTP collector
+    environment:
+      - COLLECTOR_OTLP_ENABLED=true
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:16686"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
   prometheus:
     container_name: prometheus
     image: prom/prometheus:latest
     volumes:
-      - ./backend/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./backend/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml # See prometheus.yml for host and port
     networks:
       - network
     ports:
       - 9090:9090
+    environment:
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_PORT=15692
+      - OTEL_COLLECTOR_HOST=otel-collector
+      - OTEL_COLLECTOR_PORT=9464
     healthcheck:
       test: ["CMD", "wget", "--spider", "-q", "http://localhost:9090/-/healthy"]
       interval: 10s
@@ -73,7 +118,7 @@ services:
       - GF_SECURITY_ADMIN_USER=${GRAFANA_USER}
       - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD}
     ports:
-      - 3001:3000
+      - 3010:3000
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:3000/api/health"]
       interval: 10s
@@ -91,6 +136,8 @@ services:
         condition: service_healthy
       rabbitmq:
         condition: service_healthy
+      # otel-collector:
+      #   condition: service_healthy
     networks:
       - network
     environment:
@@ -109,6 +156,7 @@ services:
       - RABBITMQ.HOST=rabbitmq
       - RABBITMQ.PORT=5672
       - RABBITMQ.QUEUE=${RABBITMQ_QUEUE}
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4317
       - RUST_LOG=${RUST_LOG}
     ports:
       - ${API_HTTP_PORT}:${API_HTTP_PORT}
@@ -122,6 +170,8 @@ services:
     depends_on:
       rabbitmq:
         condition: service_healthy
+      otel-collector:
+        condition: service_started
     networks:
       - network
     environment:
@@ -132,6 +182,7 @@ services:
       - RABBITMQ.QUEUE=${RABBITMQ_QUEUE}
       - API.HOST=api
       - API.PORT=${API_GRPC_PORT}
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4317
       - LIVETIMING_URL=${LIVETIMING_URL}
       - RUST_LOG=${RUST_LOG}
 
@@ -146,6 +197,7 @@ services:
       - NODE_ENV=production
       - API_HOST=${API_HOST}
       - API_PORT=${API_HTTP_PORT}
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4317
       - IMAGE_URL=${IMAGE_URL}
     ports:
       - ${WEB_PORT}:3000 
