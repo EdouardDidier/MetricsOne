@@ -1,3 +1,3 @@
 Work in progress...
 
-![](backend/docs/GlobalArchitecture.png)
+![MetricsOne architecture](https://raw.githubusercontent.com/EdouardDidier/MetricsOne-Backend/main/docs/GlobalArchitecture.png)
