@@ -18,8 +18,7 @@ The entire system is containerized with **Docker**, instrumented with **OpenTele
 ## 🧰 Architecture
 
 ![MetricsOne Architecture](docs/Architecture.png)
-<sub>*<center>MetricsOne high-level architecture</center>*</sub>
-
+<sub>*MetricsOne high-level architecture*</sub>
 
 ### Global workflow 
 
@@ -95,7 +94,7 @@ Traces and logs are collected by an OpenTelemetry Collector and can be observed 
 By default, Jaeger is available at [http://localhost:16686](http://localhost:16686).
 
 ![Jaeger Example](docs/ExampleJaeger.png)
-<sub>*<center>Example of Traces and Logs in Jaeger</center>*</sub>
+<sub>*Example of Traces and Logs in Jaeger*</sub>
 
 ### Metrics
 
