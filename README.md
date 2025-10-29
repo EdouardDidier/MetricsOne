@@ -18,7 +18,7 @@ The entire system is containerized with **Docker**, instrumented with **OpenTele
 ## 🧰 Architecture
 
 ![MetricsOne Architecture](docs/Architecture.png)
-<sub>*MetricsOne high-level architecture*</sub>
+<sub>*<center>MetricsOne high-level architecture</center>*</sub>
 
 
 ### Global workflow 
@@ -67,6 +67,8 @@ MetricsOne (Main repository)
 1. Clone the repository 
     ```bash
     git clone --recurse-submodules https://github.com/EdouardDidier/MetricsOne.git
+    ```
+    ```bash
     cd MetricsOne
     ```
 2. Create a `.env` file 
@@ -81,8 +83,7 @@ MetricsOne (Main repository)
     ```
 4. Run the frontend 
     ```bash
-    docker compose up -d
-    docker compose --profile web up -d
+    docker compose up -d web
     ```
 5. Access the web interface at [http://localhost:3000](http://localhost:3000)
 
@@ -93,8 +94,8 @@ MetricsOne (Main repository)
 Traces and logs are collected by an OpenTelemetry Collector and can be observed through Jaeger. 
 By default, Jaeger is available at [http://localhost:16686](http://localhost:16686).
 
-[Jaeger Example](docs/ExampleJaeger.png)
-<sub>*Example of Traces and Logs in Jaeger*</sub>
+![Jaeger Example](docs/ExampleJaeger.png)
+<sub>*<center>Example of Traces and Logs in Jaeger</center>*</sub>
 
 ### Metrics
 
