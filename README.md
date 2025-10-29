@@ -1,4 +1,4 @@
-# <img src="docs/logo.png" width="80em"> MetricsOne
+# <picture><img src="docs/logo.png" width="80em"></picture> MetricsOne
 
 [![Rust](https://img.shields.io/badge/Rust-1.80+-orange.svg)](https://rust-lang.org/)
 [![Next.js](https://img.shields.io/badge/Frontend-Next.js-lightgrey.svg)](https://nextjs.org/)
@@ -12,7 +12,7 @@ A distributed Rust + Next.js platform for analyzing and visualizing Formula 1 da
 **MetricsOne** is a web tool designed to analyze Formula 1 data based on a distributed architecture in **Rust**. 
 A **Worker** service retrieves data from [formula1.com](https://formula1.com/) and sends it to the **Main service** through **gRPC**. 
 The main service communicates with the worker asynchronously through **RabbitMQ**, populates a **PostgreSQL** database, and exposes the data through a **REST API**.
-This data can then be viewed from a **Next.js** interface (React + TypeScript). 
+This data can then be viewed from a **Next.js** interface (**React** + **TypeScript**). 
 The entire system is containerized with **Docker**, instrumented with **OpenTelemetry** and **Prometheus**, and monitored via **Grafana** and **Jaeger**.
 
 ## 🧰 Architecture
