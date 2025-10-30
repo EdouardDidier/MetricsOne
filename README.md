@@ -103,25 +103,31 @@ By default, Prometheus is available at [http://localhost:9090](http://localhost:
 
 ## 🧩 Dependencies
 
-- [Rust](https://www.rust-lang.org/)
-    - [Actix-web](https://actix.rs/) to handle incoming HTTP requests
-    - [Tokio](https://tokio.rs/) for asynchronous programming
-    - [SQLx](https://github.com/launchbadge/sqlx) to prepare and execute SQL queries
-    - [Tonic](https://github.com/hyperium/tonic) and [Prost](https://github.com/tokio-rs/prost) to handle gRPC requests and 
-    - [Lapin](https://github.com/amqp-rs/lapin) for interactions with RabbitMQ
-    - [Tracing](https://github.com/tokio-rs/tracing) for instrumentation
-    - [Reqwest](https://github.com/seanmonstar/reqwest) for external HTTP requests
-    - [Serde](https://serde.rs/) and [Bincode](https://sr.ht/~stygianentity/bincode/) for serialization and deserialization
+### Backend ([Rust](https://www.rust-lang.org/))
+
+- [Actix-web](https://actix.rs/) to handle incoming HTTP requests
+- [Tokio](https://tokio.rs/) for asynchronous programming
+- [SQLx](https://github.com/launchbadge/sqlx) to prepare and execute SQL queries
+- [Tonic](https://github.com/hyperium/tonic) and [Prost](https://github.com/tokio-rs/prost) to handle [gRPC](https://grpc.io/) requests
+- [Lapin](https://github.com/amqp-rs/lapin) for interactions with RabbitMQ
+- [Tracing](https://github.com/tokio-rs/tracing) for instrumentation
+- [Reqwest](https://github.com/seanmonstar/reqwest) for external HTTP requests
+- [Serde](https://serde.rs/) and [Bincode](https://sr.ht/~stygianentity/bincode/) for serialization and deserialization
+
+### Infrastructure
+
 - [PostgreSQL](https://www.postgresql.org/)
 - [RabbitMQ](https://www.rabbitmq.com/)
 - [OpenTelemetry](https://opentelemetry.io/)
 - [Prometheus](https://prometheus.io/)
 - [Grafana](https://grafana.com/)
 - [Jaeger](https://www.jaegertracing.io/)
-- [Next.js](https://nextjs.org/)
-    - [React](https://react.dev/)
-    - [TypeScript](https://www.typescriptlang.org/)
 - [Docker](https://www.docker.com/)
+
+### Frontend ([Next.js](https://nextjs.org/))
+
+- [React](https://react.dev/)
+- [TypeScript](https://www.typescriptlang.org/)
 
 ## 📝 Resources
 
